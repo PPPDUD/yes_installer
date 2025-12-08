@@ -3,7 +3,7 @@ An experimental installer script for `homemade_yes`. `yes_installer` is still in
 
 Intended for Ubuntu 25.04, and should work on all modern Ubuntu versions (including Ubuntu >= 25.10).
 
-You can install the dependencies for this script by running `sudo apt install pv curl`.
+You can install the dependencies for this script by running `sudo apt install curl`.
 
 ## Installing homemade_yes
 First, select the _Install homemade_yes_ option and press _Enter_.
