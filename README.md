@@ -1,7 +1,7 @@
 # yes_installer
 An experimental installer script for `homemade_yes`. `yes_installer` is still in early development; use at your own risk!
 
-Intended for Ubuntu 25.04, and should work on all modern Ubuntu versions (including Ubuntu >= 25.10).
+Intended for Ubuntu 25.04, and should work on all modern Ubuntu versions (including Ubuntu >= 25.10). If you want to see an LLM attempt to overcomplicate this README into an entire software manual, take a look at [this DeepWiki entry](https://deepwiki.com/PPPDUD/yes_installer/1-overview).
 
 You can install the dependencies for this script by running `sudo apt install curl`.
 
