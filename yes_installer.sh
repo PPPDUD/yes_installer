@@ -1,35 +1,44 @@
 #!/bin/sh
 get_command ()
 {
-COMMAND=$(whiptail --title "homemade_yes installer" --menu "What would you like to do?" 25 78 16 "Install homemade_yes" "Reconfigure your system to use homemade_yes." "Remove homemade_yes" "Uninstall homemade_yes and remove aliases." "Change aliases" "Add or remove aliases." "Quit" "Exit the installer." 3>&1 1>&2 2>&3)
+COMMAND=$(whiptail --title "homemade_yes installer" --menu "What would you like to do?" 25 108 16 "Install homemade_yes (user-only)" "Install homemade_yes to ~/.homemade_yes." "Install homemade_yes (apt)" "Install homemade_yes as a system-wide Debian package." "Remove homemade_yes (apt)" "Remove the homemade_yes Debian package." "Remove homemade_yes (user-only)" "Uninstall a user-local homemade_yes." "Change aliases" "Add or remove aliases." "Quit" "Exit the installer." 3>&1 1>&2 2>&3)
 }
 
 while true 
 do {
 get_command
-if [ "$COMMAND" = "Install homemade_yes" ]; then
+if [ "$COMMAND" = "Install homemade_yes (user-only)" ]; then
 mkdir ~/.homemade_yes
 cd ~/.homemade_yes
-curl -O -L https://github.com/PPPDUD/homemade_yes/releases/download/v0.2/homemade_yes
+curl -O -L https://github.com/PPPDUD/homemade_yes/releases/download/v0.5/homemade_yes
 chmod +x homemade_yes
-whiptail --msgbox "homemade_yes has been installed at ~/.homemade_yes.\n\nIn the following screen, type in any required aliases and press Ctrl+X to complete the setup process." 10 70 --title "Installer"
-nano ~/.bash_aliases
-whiptail --msgbox "Please restart any currently-open shells to apply your changes." 10 70 --title "Installer"
+whiptail --msgbox "homemade_yes has been installed at ~/.homemade_yes." 10 70 --title "Installer"
 fi
 
-if [ "$COMMAND" = "Remove homemade_yes" ]; then
+if [ "$COMMAND" = "Remove homemade_yes (user-only)" ]; then
 cd ~/.homemade_yes
 rm homemade_yes
 cd ..
 rmdir .homemade_yes
-whiptail --msgbox "homemade_yes has been uninstalled from your system.\n\nIn the following screen, please remove any related aliases and press Ctrl+X to complete the removal process." 10 70 --title "Installer"
-nano ~/.bash_aliases
-whiptail --msgbox "Please restart any currently-open shells to apply your changes." 10 70 --title "Installer"
+whiptail --msgbox "homemade_yes has been uninstalled from your system.\n\nDon't forget to remove any relevant aliases!" 10 70 --title "Installer"
+fi
+
+if [ "$COMMAND" = "Install homemade_yes (apt)" ]; then
+curl --output /tmp/homemade_yes.deb -L https://github.com/PPPDUD/homemade_yes/releases/download/v0.5/homemade_yes.deb
+sudo apt install /tmp/homemade_yes.deb
+rm /tmp/homemade_yes.deb
+whiptail --msgbox "homemade_yes has been installed at /usr/bin/homemade_yes." 10 70 --title "Installer"
+fi
+
+if [ "$COMMAND" = "Remove homemade_yes (apt)" ]; then
+sudo apt purge homemade-yes -y
+whiptail --msgbox "homemade_yes has been uninstalled from your system.\n\nDon't forget to remove any relevant aliases!" 10 70 --title "Installer"
 fi
 
 if [ "$COMMAND" = "Change aliases" ]; then
 nano ~/.bash_aliases
 fi
+
 
 if [ "$COMMAND" = "Quit" ]; then
 exit 0
